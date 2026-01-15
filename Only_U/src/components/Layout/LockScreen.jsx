@@ -51,7 +51,7 @@ const LockScreen = () => {
 
       <div className="lock-content">
         <h1>
-          <ShinyText text="¿Qué día empezó todo?" />
+          <ShinyText text="La fecha donde empezó todo" />
         </h1>
 
         <form onSubmit={handleSubmit}>
@@ -62,7 +62,6 @@ const LockScreen = () => {
             value={inputDate}
             onChange={handleChange}
             className={error ? "error" : ""}
-            autoFocus
           />
           {/* BOTÓN CON ICONO */}
           <button type="submit">

@@ -18,7 +18,7 @@ function App() {
             exit={{
               opacity: 0,
               filter: "blur(20px)",
-              transition: { duration: 7 },
+              transition: { duration: 5 },
             }}
             style={{ position: "fixed", zIndex: 9999, inset: 0 }}>
             <LockScreen />
@@ -50,7 +50,7 @@ function App() {
           {/* CAPA 3: UI */}
           <div className="layer-ui">
             <div className="interactive" style={{ padding: 20 }}>
-              <h1>Bienvenida, mi vida ❤️</h1>
+              <h1>Hello World!</h1>
               <p>Monedas: {coins}</p>
             </div>
           </div>
