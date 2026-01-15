@@ -1,0 +1,73 @@
+.lock-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000; /* Fondo negro elegante para el candado */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+
+  .lock-content {
+    text-align: center;
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    input {
+      background: transparent;
+      border: 2px solid #333;
+      border-radius: 10px;
+      padding: 10px 20px;
+      color: white;
+      font-size: 1.5rem;
+      text-align: center;
+      width: 180px;
+      outline: none;
+      transition: 0.3s;
+      letter-spacing: 3px;
+
+      &:focus {
+        border-color: #ff99cc;
+        box-shadow: 0 0 15px rgba(255, 153, 204, 0.3);
+      }
+
+      &.error {
+        border-color: red;
+        animation: shake 0.3s ease-in-out;
+      }
+    }
+
+    button {
+      margin-left: 10px;
+      padding: 10px 15px;
+      font-size: 1.2rem;
+      border: none;
+      background: #ff99cc;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.2s;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-10px);
+  }
+  75% {
+    transform: translateX(10px);
+  }
+}
