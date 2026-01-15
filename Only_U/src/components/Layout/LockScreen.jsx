@@ -51,7 +51,7 @@ const LockScreen = () => {
 
       <div className="lock-content">
         <h1>
-          <ShinyText text="La fecha donde empezó todo" />
+          <ShinyText text="La fecha donde empezó todo 123" />
         </h1>
 
         <form onSubmit={handleSubmit}>
