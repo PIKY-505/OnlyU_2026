@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { useGameStore } from "../../store/useStore";
 import ShinyText from "../UI/ShinyText";
-import Silk from "../Backgrounds/Silk"; // Importamos el fondo
-import { FaArrowRight } from "react-icons/fa"; // Importamos el icono
+import Silk from "../Backgrounds/Silk";
+import { FaArrowRight, FaEye, FaEyeSlash } from "react-icons/fa"; // <--- NUEVOS ICONOS
 import "../../styles/LockScreen.scss";
 
 const LockScreen = () => {
   const [inputDate, setInputDate] = useState("");
   const [error, setError] = useState(false);
-  const unlockApp = useGameStore((state) => state.unlockApp);
 
+  // ESTADO PARA ALTERNAR VISIBILIDAD
+  const [showPassword, setShowPassword] = useState(false);
+
+  const unlockApp = useGameStore((state) => state.unlockApp);
   const SECRET_CODE_RAW = "230824";
 
   const handleChange = (e) => {
@@ -40,7 +43,6 @@ const LockScreen = () => {
 
   return (
     <div className="lock-screen">
-      {/* EL FONDO SILK VIVE AQUÍ Y MUERE CUANDO ESTE COMPONENTE SE DESMONTA */}
       <Silk
         speed={4}
         scale={1}
@@ -55,16 +57,29 @@ const LockScreen = () => {
         </h1>
 
         <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            inputMode="numeric"
-            placeholder="DD/MM/AA"
-            value={inputDate}
-            onChange={handleChange}
-            className={error ? "error" : ""}
-          />
-          {/* BOTÓN CON ICONO */}
-          <button type="submit">
+          {/* ENVOLTORIO PARA INPUT + OJO */}
+          <div className="input-wrapper">
+            <input
+              /* AQUÍ CAMBIAMOS EL TIPO DINÁMICAMENTE */
+              type={showPassword ? "text" : "password"}
+              inputMode="numeric"
+              placeholder="DD/MM/AA"
+              value={inputDate}
+              onChange={handleChange}
+              className={error ? "error" : ""}
+            />
+
+            {/* BOTÓN DEL OJO */}
+            <button
+              type="button" // Importante: type="button" para que no envíe el form
+              className="toggle-eye"
+              onClick={() => setShowPassword(!showPassword)}>
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
+          </div>
+
+          {/* BOTÓN DE ENTRAR (con clase específica ahora) */}
+          <button type="submit" className="submit-btn">
             <FaArrowRight size={20} />
           </button>
         </form>

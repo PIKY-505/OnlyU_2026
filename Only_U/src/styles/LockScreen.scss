@@ -4,25 +4,22 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  /* IMPORTANTE 1: Quitamos el background-color negro sólido para ver el Canvas */
   background-color: transparent;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 9999;
 
-  /* IMPORTANTE 2: Aseguramos que el contenido esté POR ENCIMA del Canvas */
   .lock-content {
-    position: relative; /* Necesario para que el z-index funcione */
-    z-index: 10; /* Un número mayor que el 0 del Canvas */
+    position: relative;
+    z-index: 10;
     text-align: center;
 
-    /* --- NUEVO: CONTROLADOR DE ALINEACIÓN --- */
     form {
-      display: flex; /* Pone input y botón en fila */
-      align-items: center; /* Los alinea al centro verticalmente */
-      justify-content: center; /* Centra el grupo horizontalmente */
-      gap: 10px; /* Espacio entre ellos (sustituye al margin-left) */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px; /* Un poco más de espacio entre el input y la flecha */
     }
 
     h1 {
@@ -30,15 +27,26 @@
       margin-bottom: 2rem;
     }
 
+    /* --- NUEVO CONTENEDOR INPUT + OJO --- */
+    .input-wrapper {
+      position: relative; /* Para poder posicionar el ojo absoluto dentro */
+      display: flex;
+      align-items: center;
+      width: 220px; /* Un poco más ancho para que quepa todo */
+    }
+
     input {
       background: rgba(0, 0, 0, 0.3);
       border: 2px solid rgba(255, 255, 255, 0.2);
       border-radius: 10px;
-      padding: 10px 20px;
+
+      /* Padding extra a la derecha (45px) para que el texto no toque el ojo */
+      padding: 10px 45px 10px 20px;
+
       color: white;
       font-size: 1.5rem;
       text-align: center;
-      width: 180px;
+      width: 100%;
       outline: none;
       transition: 0.3s;
       letter-spacing: 3px;
@@ -56,19 +64,38 @@
       }
     }
 
-    button {
-      /* --- FLEX INTERNO (Centrar la flecha) --- */
+    /* --- ESTILO DEL BOTÓN OJO --- */
+    .toggle-eye {
+      position: absolute;
+      right: 10px; /* Pegado a la derecha del input */
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.6);
+      cursor: pointer;
+      font-size: 1.2rem;
+      padding: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.3s, transform 0.2s;
+      z-index: 20;
+
+      &:hover {
+        color: #ff99cc;
+        transform: scale(1.1);
+      }
+    }
+
+    /* --- ESTILO DEL BOTÓN DE ENTRAR (FLECHA) --- */
+    .submit-btn {
       display: flex;
       justify-content: center;
       align-items: center;
-
-      /* Reset de márgenes (ahora lo controla el gap del form) */
       margin-left: 0;
 
-      /* Estética */
-      width: 60px; /* Hacemos que sea un botón cuadrado */
-      height: 50px; /* Hacemos que sea un botón cuadrado */
-      padding: 0; /* Quitamos padding para que el width/height manden */
+      width: 60px;
+      height: 50px;
+      padding: 0;
 
       border: none;
       background: #bd71ff;
