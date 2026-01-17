@@ -12,9 +12,9 @@ import ShopContainer from "./components/Shop/ShopContainer";
 // CONFIGURACIÓN DEL MENÚ
 const shopItems = [
   // AÑADIMOS IDs: Importante para saber qué tienda abrir
-  { id: "backgrounds", label: "Fondos", ariaLabel: "Galería de fondos" },
-  { id: "cursors", label: "Cursores", ariaLabel: "Personalizar cursor" },
-  { id: "trails", label: "Rastros", ariaLabel: "Efectos de rastro" },
+  { id: "backgrounds", label: "Fondos", ariaLabel: "Galería de Fondos" },
+  { id: "cursors", label: "Cursores", ariaLabel: "Personalizar Cursor" },
+  { id: "trails", label: "Mascotas", ariaLabel: "Personalizar Mascota" },
 ];
 
 const socialItems = [
