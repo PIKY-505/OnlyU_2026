@@ -106,7 +106,7 @@ const SHOP_DATA = {
       name: "Ratón Estándar",
       description: "El cursor de toda la vida.",
       price: "Gratis",
-      previewColor: "#ffffff",
+      previewColor: "transparent",
       icon: <FiMousePointer />,
     },
   ],
@@ -132,7 +132,7 @@ const SHOP_DATA = {
       name: "Gato Saltarín",
       description: "Siempre lleno de energía.",
       price: "Gratis",
-      previewColor: "#ffd6a5",
+      previewColor: "#a89c8d",
       icon: <img src={jumpCat} alt="Jump Cat" style={{ width: "40px" }} />,
     },
     {
@@ -140,7 +140,7 @@ const SHOP_DATA = {
       name: "Gato Rodante",
       description: "Rodando hacia tu corazón.",
       price: "Gratis",
-      previewColor: "#fdffb6",
+      previewColor: "#ffecb6",
       icon: (
         <img src={rollingCat} alt="Rolling Cat" style={{ width: "40px" }} />
       ),
@@ -150,7 +150,7 @@ const SHOP_DATA = {
       name: "Pato",
       description: "Cuack cuack.",
       price: "Gratis",
-      previewColor: "#caffbf",
+      previewColor: "#ebe371",
       icon: <img src={duck} alt="Duck" style={{ width: "40px" }} />,
     },
     {
@@ -158,7 +158,7 @@ const SHOP_DATA = {
       name: "Pompom",
       description: "Suave y esponjoso.",
       price: "Gratis",
-      previewColor: "#9bf6ff",
+      previewColor: "#e3e4b2",
       icon: <img src={pompom} alt="Pompom" style={{ width: "40px" }} />,
     },
     {
@@ -166,7 +166,7 @@ const SHOP_DATA = {
       name: "Esqueleto",
       description: "Spooky scary skeletons.",
       price: "Gratis",
-      previewColor: "#a0c4ff",
+      previewColor: "#a3a3a3",
       icon: <img src={skeletonRun} alt="Skeleton" style={{ width: "40px" }} />,
     },
   ],
