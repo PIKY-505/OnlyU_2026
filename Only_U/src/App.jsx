@@ -70,7 +70,7 @@ function App() {
       </AnimatePresence>
 
       {/* EL RESTO DE LA APP (Se muestra siempre, pero el loader lo tapa al inicio) */}
-      <TrailSystem />
+
       {/* 1. EL CANDADO */}
       <AnimatePresence>
         {!isUnlocked && (
@@ -118,7 +118,7 @@ function App() {
 
           {/* 3. EL CONTENEDOR DE LA TIENDA (Aparecerá cuando activeShop no sea null) */}
           <ShopContainer />
-
+          <TrailSystem />
           <MainContent />
         </motion.div>
       )}
