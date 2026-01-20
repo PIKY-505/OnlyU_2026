@@ -1,0 +1,54 @@
+import React from "react";
+import { useGameStore } from "../../store/useStore";
+import GradientBackground from "./GradientBackground";
+import Galaxy from "./Galaxy";
+import { AnimatePresence, motion } from "framer-motion";
+
+const BackgroundController = () => {
+  const { activeBackground } = useGameStore();
+
+  return (
+    <div style={{ position: "fixed", inset: 0, zIndex: 0 }}>
+      <AnimatePresence mode="wait">
+        {/* CASO 1: GRADIENTE */}
+        {activeBackground === "gradient" && (
+          <motion.div
+            key="gradient"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1 }}
+            style={{ position: "absolute", inset: 0 }}>
+            <GradientBackground />
+          </motion.div>
+        )}
+
+        {/* CASO 2: GALAXY (SIEMPRE LIGERO) */}
+        {activeBackground === "galaxy" && (
+          <motion.div
+            key="galaxy"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.5 }}
+            style={{ position: "absolute", inset: 0, background: "#050010" }}>
+            <Galaxy
+              mouseRepulsion={false}
+              mouseInteraction={false}
+              density={1}
+              glowIntensity={0.5}
+              saturation={1}
+              hueShift={110}
+              twinkleIntensity={0.3}
+              rotationSpeed={0.1}
+              starSpeed={0.5}
+              speed={0.5}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+export default BackgroundController;
