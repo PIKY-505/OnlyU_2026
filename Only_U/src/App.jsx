@@ -7,12 +7,15 @@ import StaggeredMenu from "./components/UI/StaggeredMenu";
 import { AnimatePresence, motion } from "framer-motion";
 import "./styles/main.scss";
 
-// Importamos el contenedor de la tienda, efectos y UI
+// 1. IMPORTAMOS EL DOCK Y LOS ICONOS
+import Dock from "./components/UI/Dock";
+import { FiHome, FiGrid, FiSettings, FiUser } from "react-icons/fi";
+
 import ShopContainer from "./components/Shop/ShopContainer";
 import TrailSystem from "./components/Effects/TrailSystem";
 import LoadingScreen from "./components/UI/LoadingScreen";
 
-// CONFIGURACIÓN DEL MENÚ
+// CONFIGURACIÓN DEL MENÚ LATERAL
 const shopItems = [
   { id: "backgrounds", label: "Fondos", ariaLabel: "Galería de Fondos" },
   { id: "cursors", label: "Cursores", ariaLabel: "Personalizar Cursor" },
@@ -25,7 +28,6 @@ const socialItems = [
 ];
 
 function App() {
-  // 1. Traemos performanceMode del store
   const { isUnlocked, openShop } = useGameStore();
 
   const handleMenuClick = (itemId) => {
@@ -33,6 +35,30 @@ function App() {
       openShop(itemId);
     }
   };
+
+  // --- 2. DEFINICIÓN DE LOS ÍTEMS DEL DOCK (ESTO FALTABA) ---
+  const dockItems = [
+    {
+      icon: <FiHome size={22} />,
+      label: "Inicio",
+      onClick: () => console.log("Click en Inicio"),
+    },
+    {
+      icon: <FiGrid size={22} />,
+      label: "Apps",
+      onClick: () => console.log("Click en Apps"),
+    },
+    {
+      icon: <FiUser size={22} />,
+      label: "Perfil",
+      onClick: () => console.log("Click en Perfil"),
+    },
+    {
+      icon: <FiSettings size={22} />,
+      label: "Ajustes",
+      onClick: () => console.log("Click en Ajustes"),
+    },
+  ];
 
   // --- LÓGICA DE CARGA ---
   const [isLoading, setIsLoading] = useState(true);
@@ -93,7 +119,8 @@ function App() {
           style={{ width: "100%", height: "100%", position: "relative" }}>
           {/* FONDO CONTROLADO */}
           <BackgroundController />
-          {/* MENÚ STAGGERED */}
+
+          {/* MENÚ STAGGERED (Lateral) */}
           <StaggeredMenu
             items={shopItems}
             socialItems={socialItems}
@@ -112,6 +139,14 @@ function App() {
           <ShopContainer />
           <TrailSystem />
           <MainContent />
+
+          {/* 3. DOCK (Barra inferior) */}
+          <Dock
+            items={dockItems}
+            panelHeight={60}
+            baseItemSize={45}
+            magnification={60}
+          />
         </motion.div>
       )}
     </main>
