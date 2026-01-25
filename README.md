@@ -5,14 +5,14 @@
 ![React](https://img.shields.io/badge/React-18.2-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![Vite](https://img.shields.io/badge/Vite-5.0-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![Three.js](https://img.shields.io/badge/Three.js-r160-000000?style=for-the-badge&logo=three.js&logoColor=white)
+![WebGL](https://img.shields.io/badge/WebGL-990000?style=for-the-badge&logo=webgl&logoColor=white)
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-11.0-0055FF?style=for-the-badge&logo=framer&logoColor=white)
 ![Zustand](https://img.shields.io/badge/State-Zustand-orange?style=for-the-badge&logo=react&logoColor=white)
 ![Sass](https://img.shields.io/badge/Style-Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white)
-![WebGL](https://img.shields.io/badge/WebGL-990000?style=for-the-badge&logo=webgl&logoColor=white)
 
 ## 🚀 Engineering Overview
 
-**Only U** is a sophisticated Single Page Application (SPA) that pushes the boundaries of web interactivity. It leverages a hybrid rendering approach, combining the declarative nature of React for UI state with the imperative performance of WebGL for background visual effects.
+**Only You** is a sophisticated Single Page Application (SPA) that pushes the boundaries of web interactivity. It leverages a hybrid rendering approach, combining the declarative nature of React for UI state with the imperative performance of WebGL for background visual effects.
 
 The architecture is designed to maintain a consistent **60 FPS** even during complex scene transitions, utilizing off-main-thread logic where possible and optimizing React's reconciliation cycle.
 
@@ -40,7 +40,7 @@ The user interface mimics the fluidity of native operating systems (like macOS o
 
 ### ⚡ Advanced Graphics Pipeline (WebGL)
 
-The visual core of Only U relies on **Three.js**, employing both vanilla implementations and **@react-three/fiber** (R3F) where declarative scene graphs are beneficial.
+The visual core of Only You relies on **Three.js**, employing both vanilla implementations and **@react-three/fiber** (R3F) where declarative scene graphs are beneficial.
 
 #### 1. The Background Controller
 
