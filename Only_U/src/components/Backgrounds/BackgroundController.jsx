@@ -136,7 +136,7 @@ const BackgroundController = () => {
               pillarWidth={2.5}
               pillarHeight={0.4}
               noiseIntensity={0.7}
-              pillarRotation={67}
+              pillarRotation={293}
               interactive={false}
               mixBlendMode="lighten"
               quality="high"
