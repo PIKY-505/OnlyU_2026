@@ -1,4 +1,4 @@
-# 🌌 Only You
+# 🌌 Only U
 
 > A highly immersive, personalized interactive experience simulating a modern operating system within the browser. Built with a focus on high-performance rendering, fluid motion physics, and aesthetic precision.
 
