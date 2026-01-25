@@ -1,11 +1,22 @@
 .main-container {
   width: 100%;
   height: 100%;
+  overflow-y: auto; /* Habilitar scroll vertical */
+  overflow-x: hidden;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start; /* Alinear al inicio para que el scroll funcione bien */
   align-items: center;
-  padding: 20px;
+  flex-direction: column; /* Apilar elementos verticalmente */
+  gap: 40px; /* Espacio entre la tarjeta de texto y la galería */
+  padding: 100px 20px 150px; /* Padding superior e inferior generoso */
   box-sizing: border-box;
+
+  /* Ocultar barra de scroll para estética limpia */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 
   /* Animación de entrada suave */
 }
@@ -15,6 +26,7 @@
   width: 100%;
   max-width: 600px; /* Que no sea gigante en PC */
   min-height: 400px;
+  flex-shrink: 0; /* IMPORTANTE: Evita que la tarjeta se encoja y el texto se salga */
   padding: 40px;
 
   /* EFECTO CRISTAL (GLASSMORPHISM) */
