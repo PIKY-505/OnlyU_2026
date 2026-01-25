@@ -12,7 +12,7 @@
 
 ## 🚀 Engineering Overview
 
-**Only U** is a sophisticated Single Page Application (SPA) that pushes the boundaries of web interactivity. It leverages a hybrid rendering approach, combining the declarative nature of React for UI state with the imperative performance of WebGL for background visual effects.
+**Only You** is a sophisticated Single Page Application (SPA) that pushes the boundaries of web interactivity. It leverages a hybrid rendering approach, combining the declarative nature of React for UI state with the imperative performance of WebGL for background visual effects.
 
 The architecture is designed to maintain a consistent **60 FPS** even during complex scene transitions, utilizing off-main-thread logic where possible and optimizing React's reconciliation cycle.
 
@@ -40,7 +40,7 @@ The user interface mimics the fluidity of native operating systems (like macOS o
 
 ### ⚡ Advanced Graphics Pipeline (WebGL)
 
-The visual core of Only U relies on **Three.js**, employing both vanilla implementations and **@react-three/fiber** (R3F) where declarative scene graphs are beneficial.
+The visual core of Only You relies on **Three.js**, employing both vanilla implementations and **@react-three/fiber** (R3F) where declarative scene graphs are beneficial.
 
 #### 1. The Background Controller
 
