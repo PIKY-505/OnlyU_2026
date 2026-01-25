@@ -1,90 +1,16 @@
-# 🌌 Only You
+# React + Vite
 
-> A personalized interactive experience built with modern web technologies, focused on aesthetics, fluid animations, and advanced graphic rendering.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
-![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white)
-![Sass](https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white)
-![Three.js](https://img.shields.io/badge/Three.js-000000?style=for-the-badge&logo=three.js&logoColor=white)
+Currently, two official plugins are available:
 
-## 🚀 Technical Overview
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-This project is a highly interactive **Single Page Application (SPA)** that combines complex global state logic with high-performance visual effects. It is designed as a simulated operating system within the browser.
+## React Compiler
 
-### 🧠 Core & Architecture
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-- **Framework:** React 18+ on Vite for instant HMR (Hot Module Replacement) and optimized builds.
-- **State Management (Zustand):**
-  - A centralized store (`useGameStore`) is used to handle application state atomically.
-  - **Persistence:** Controls app unlocking, shop inventory, and equipped items (backgrounds, cursors, pets) without prop-drilling.
+## Expanding the ESLint configuration
 
-### 🎨 UI/UX & Animations (Framer Motion)
-
-The interface comes to life thanks to **Framer Motion**, utilizing spring physics for a natural feel.
-
-- **Dynamic Dock:**
-  - Replicates the macOS magnification effect.
-  - Uses `useMotionValue` and `useTransform` to map mouse position to icon scale in real-time (60fps), avoiding costly React re-renders.
-- **Screen Transitions:**
-  - Usage of `AnimatePresence` to manage component lifecycles upon mounting and unmounting (e.g., opening/closing the shop, unlocking screen).
-  - Coordinated blur effects (`backdrop-filter`) and scaling.
-
-### ⚡ Graphics & Shaders (Three.js / WebGL)
-
-The project implements advanced graphic rendering for backgrounds, optimized for performance using **Three.js** and custom shaders:
-
-1.  **Galaxy Background:**
-    - Particle simulation with custom **Vertex & Fragment Shaders**.
-    - Reactive interactivity: Stars respond to mouse position via `uniforms`.
-2.  **Silk Background:**
-    - Procedural GLSL shader to simulate fluids and silk textures in motion.
-3.  **Ballpit:**
-    - Physics-based interaction using `InstancedMesh` for rendering optimization.
-    - Custom collision detection logic implemented in JavaScript to handle sphere-to-sphere and wall interactions.
-4.  **Floating Lines:**
-    - Custom fragment shader rendering multiple sine-wave based lines.
-    - Features gradient coloring, parallax effects, and mouse influence (bending lines).
-5.  **Light Pillars:**
-    - Volumetric-style vertical light beams implemented via custom shaders.
-    - Uses noise functions for intensity variation and smooth color mixing.
-
-### 🛠️ Key Features
-
-#### 🔐 Security System (Lock Screen)
-
-- Initial lock screen protecting content.
-- Passcode validation with visual feedback ("shake" animation on error and visual haptic feedback).
-- Cinematic transition upon unlocking (fade-out and zoom-in towards the desktop).
-
-#### 🛍️ Customization Engine (Shop)
-
-- Real-time equipment system (**Hot-swapping**).
-- Changes in backgrounds, cursors, or pets are reflected instantly throughout the application.
-- User interface with animated tabs and dynamic color/asset previews.
-
-#### 🖱️ Cursor Trails & Pets
-
-- Pointer tracking system that renders graphic elements (GIFs/PNGs) following the mouse.
-- Uses linear interpolation or spring physics (`damping` / `stiffness`) so pet movement feels smooth and organic.
-
-#### 🎵 Integrated Audio Player
-
-- Persistent floating player.
-- Playlist management with metadata support.
-- Full controls: Play/Pause, interactive Seek bar, and volume control.
-
-## 📂 Project Structure
-
-```bash
-src/
-├── assets/          # Static resources (images, music, icons)
-├── components/      # Modular React components
-│   ├── Backgrounds/ # Three.js and Canvas implementations (Ballpit, Galaxy, etc.)
-│   ├── Shop/        # Shop logic and item grid
-│   ├── UI/          # Interface components (Dock, Menus, LockScreen)
-│   └── ...
-├── store/           # Zustand stores (business logic)
-├── styles/          # Modular SCSS files for complex styles
-└── App.jsx          # Entry point and layer orchestration
-```
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
