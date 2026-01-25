@@ -9,7 +9,7 @@ const BackgroundController = () => {
   const { activeBackground } = useGameStore();
 
   return (
-    <div style={{ position: "fixed", inset: 0, zIndex: 0 }}>
+    <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
       <AnimatePresence mode="wait">
         {/* CASO 1: GRADIENTE */}
         {activeBackground === "gradient" && (

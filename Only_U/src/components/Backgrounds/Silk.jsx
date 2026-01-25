@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unknown-property */
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { forwardRef, useRef, useMemo, useLayoutEffect } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { forwardRef, useRef, useMemo, useEffect } from "react";
 import { Color } from "three";
 
 // Conversor de Hex a RGB normalizado (para WebGL)
@@ -20,7 +20,8 @@ varying vec3 vPosition;
 void main() {
   vPosition = position;
   vUv = uv;
-  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  // FIX: Usar coordenadas de clip directas para llenar la pantalla siempre
+  gl_Position = vec4(position, 1.0);
 }
 `;
 
@@ -71,21 +72,14 @@ void main() {
 `;
 
 const SilkPlane = forwardRef(function SilkPlane({ uniforms }, ref) {
-  const { viewport } = useThree();
-
-  useLayoutEffect(() => {
-    if (ref.current) {
-      ref.current.scale.set(viewport.width, viewport.height, 1);
-    }
-  }, [ref, viewport]);
-
   useFrame((_, delta) => {
     ref.current.material.uniforms.uTime.value += 0.1 * delta;
   });
 
   return (
     <mesh ref={ref}>
-      <planeGeometry args={[1, 1, 1, 1]} />
+      {/* FIX: Geometría 2x2 para cubrir el espacio de clip (-1 a 1) completo */}
+      <planeGeometry args={[2, 2]} />
       <shaderMaterial
         uniforms={uniforms}
         vertexShader={vertexShader}
@@ -114,13 +108,28 @@ const Silk = ({
       uRotation: { value: rotation },
       uTime: { value: 0 },
     }),
-    [speed, scale, noiseIntensity, color, rotation]
+    [speed, scale, noiseIntensity, color, rotation],
   );
+
+  // FIX: Forzar actualización de tamaño durante la transición de desbloqueo
+  useEffect(() => {
+    const handleResize = () => window.dispatchEvent(new Event("resize"));
+    // Disparar resize periódicamente durante la animación (1.2s) para asegurar
+    // que R3F detecte el tamaño final correcto y elimine los bordes negros.
+    const interval = setInterval(handleResize, 50);
+    const timeout = setTimeout(() => clearInterval(interval), 1200);
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timeout);
+    };
+  }, []);
 
   return (
     <Canvas
       dpr={[1, 2]}
       frameloop="always"
+      resize={{ debounce: 0 }} // FIX: Respuesta inmediata al cambio de tamaño
       // ESTILO AÑADIDO: Para que funcione como fondo
       style={{
         position: "absolute",

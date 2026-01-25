@@ -148,7 +148,12 @@ function App() {
               transition: { duration: 1 },
             }}
             transition={{ duration: 1 }}
-            style={{ width: "100%", height: "100%", position: "relative" }}>
+            style={{
+              width: "100%",
+              height: "100%",
+              position: "relative",
+              overflow: "hidden",
+            }}>
             {/* FONDO CONTROLADO */}
             <BackgroundController />
 
