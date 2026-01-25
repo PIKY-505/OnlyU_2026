@@ -1,14 +1,14 @@
-# 🌌 Only U
+# 🌌 Only You
 
 > A highly immersive, personalized interactive experience simulating a modern operating system within the browser. Built with a focus on high-performance rendering, fluid motion physics, and aesthetic precision.
 
 ![React](https://img.shields.io/badge/React-18.2-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![Vite](https://img.shields.io/badge/Vite-5.0-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![Three.js](https://img.shields.io/badge/Three.js-r160-000000?style=for-the-badge&logo=three.js&logoColor=white)
+![WebGL](https://img.shields.io/badge/WebGL-990000?style=for-the-badge&logo=webgl&logoColor=white)
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-11.0-0055FF?style=for-the-badge&logo=framer&logoColor=white)
 ![Zustand](https://img.shields.io/badge/State-Zustand-orange?style=for-the-badge&logo=react&logoColor=white)
 ![Sass](https://img.shields.io/badge/Style-Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white)
-![WebGL](https://img.shields.io/badge/WebGL-990000?style=for-the-badge&logo=webgl&logoColor=white)
 
 ## 🚀 Engineering Overview
 
