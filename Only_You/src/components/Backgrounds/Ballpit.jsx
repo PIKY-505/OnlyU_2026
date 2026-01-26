@@ -754,7 +754,16 @@ function createBallpit(e, t = {}) {
   };
 }
 
-const Ballpit = ({ className = "", followCursor = true, ...props }) => {
+const Ballpit = ({
+  className = "",
+  followCursor = true,
+  count = 100,
+  gravity = 0.5,
+  friction = 0.9975,
+  wallBounce = 0.95,
+  colors = [0, 0, 0],
+  ...props
+}) => {
   const canvasRef = useRef(null);
   const spheresInstanceRef = useRef(null);
 
@@ -764,6 +773,11 @@ const Ballpit = ({ className = "", followCursor = true, ...props }) => {
 
     spheresInstanceRef.current = createBallpit(canvas, {
       followCursor,
+      count,
+      gravity,
+      friction,
+      wallBounce,
+      colors,
       ...props,
     });
 
@@ -774,6 +788,27 @@ const Ballpit = ({ className = "", followCursor = true, ...props }) => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Reactividad para parámetros físicos y visuales
+  useEffect(() => {
+    const instance = spheresInstanceRef.current;
+    if (!instance || !instance.spheres) return;
+
+    const config = instance.spheres.config;
+    config.gravity = gravity;
+    config.friction = friction;
+    config.wallBounce = wallBounce;
+    config.followCursor = followCursor;
+
+    instance.spheres.setColors(colors);
+  }, [gravity, friction, wallBounce, followCursor, colors]);
+
+  // Reactividad para la cantidad (requiere reinicialización interna)
+  useEffect(() => {
+    const instance = spheresInstanceRef.current;
+    if (!instance) return;
+    instance.setCount(count);
+  }, [count]);
 
   return (
     <canvas

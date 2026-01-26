@@ -42,12 +42,23 @@ const DEFAULT_LP_CONFIG = {
   quality: "high",
 };
 
+const DEFAULT_BP_CONFIG = {
+  colors: ["#f700ff", "#bd71ff", "#29b1ff"],
+  count: 60,
+  gravity: 0.1,
+  friction: 0.995,
+  wallBounce: 0.9,
+  followCursor: false,
+};
+
 const BackgroundCustomizer = ({
   onClose,
   floatingLinesConfig: propFlConfig,
   setFloatingLinesConfig: propSetFlConfig,
   lightPillarsConfig: propLpConfig,
   setLightPillarsConfig: propSetLpConfig,
+  ballpitConfig: propBpConfig,
+  setBallpitConfig: propSetBpConfig,
 }) => {
   // Asumimos que estas funciones existen en el store.
   const {
@@ -56,6 +67,8 @@ const BackgroundCustomizer = ({
     setFloatingLinesConfig: storeSetFlConfig,
     lightPillarsConfig: storeLpConfig,
     setLightPillarsConfig: storeSetLpConfig,
+    ballpitConfig: storeBpConfig,
+    setBallpitConfig: storeSetBpConfig,
   } = useGameStore();
 
   // Resolver configuración y setters (Props > Store)
@@ -63,6 +76,8 @@ const BackgroundCustomizer = ({
   const setFloatingLinesConfig = propSetFlConfig || storeSetFlConfig;
   const lightPillarsConfig = propLpConfig || storeLpConfig;
   const setLightPillarsConfig = propSetLpConfig || storeSetLpConfig;
+  const ballpitConfig = propBpConfig || storeBpConfig;
+  const setBallpitConfig = propSetBpConfig || storeSetBpConfig;
 
   // --- CONFIGURACIÓN FLOATING LINES ---
   const flConfig = floatingLinesConfig || DEFAULT_FL_CONFIG;
@@ -100,12 +115,29 @@ const BackgroundCustomizer = ({
     }
   };
 
+  // --- CONFIGURACIÓN BALLPIT ---
+  const bpConfig = ballpitConfig || DEFAULT_BP_CONFIG;
+
+  const updateBpConfig = (key, value) => {
+    if (setBallpitConfig) {
+      setBallpitConfig({ ...bpConfig, [key]: value });
+    }
+  };
+
+  const updateBpColor = (index, newColor) => {
+    const newColors = [...bpConfig.colors];
+    newColors[index] = newColor;
+    updateBpConfig("colors", newColors);
+  };
+
   // --- FUNCIÓN RESET ---
   const handleReset = () => {
     if (activeBackground === "floatinglines" && setFloatingLinesConfig) {
       setFloatingLinesConfig(DEFAULT_FL_CONFIG);
     } else if (activeBackground === "lightpillars" && setLightPillarsConfig) {
       setLightPillarsConfig(DEFAULT_LP_CONFIG);
+    } else if (activeBackground === "ballpit" && setBallpitConfig) {
+      setBallpitConfig(DEFAULT_BP_CONFIG);
     }
   };
 
@@ -421,6 +453,97 @@ const BackgroundCustomizer = ({
                 {lpConfig.interactive !== false
                   ? "Activada (Ratón)"
                   : "Desactivada"}
+              </button>
+            </div>
+          </>
+        )}
+
+        {/* --- CONTENIDO PARA BALLPIT --- */}
+        {activeBackground === "ballpit" && (
+          <>
+            <div className="section">
+              <label>Colores</label>
+              <div className="color-pickers">
+                {bpConfig.colors.map((color, idx) => (
+                  <div key={idx} className="color-input-wrapper">
+                    <input
+                      type="color"
+                      value={color}
+                      onChange={(e) => updateBpColor(idx, e.target.value)}
+                    />
+                    <span className="hex-code">{color}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="section">
+              <label>
+                Cantidad <span>{bpConfig.count}</span>
+              </label>
+              <input
+                type="range"
+                min="10"
+                max="200"
+                step="10"
+                value={bpConfig.count}
+                onChange={(e) =>
+                  updateBpConfig("count", parseInt(e.target.value))
+                }
+              />
+
+              <label>
+                Gravedad <span>{bpConfig.gravity}</span>
+              </label>
+              <input
+                type="range"
+                min="0"
+                max="2"
+                step="0.1"
+                value={bpConfig.gravity}
+                onChange={(e) =>
+                  updateBpConfig("gravity", parseFloat(e.target.value))
+                }
+              />
+
+              <label>
+                Fricción <span>{bpConfig.friction}</span>
+              </label>
+              <input
+                type="range"
+                min="0.8"
+                max="1"
+                step="0.001"
+                value={bpConfig.friction}
+                onChange={(e) =>
+                  updateBpConfig("friction", parseFloat(e.target.value))
+                }
+              />
+
+              <label>
+                Rebote Pared <span>{bpConfig.wallBounce}</span>
+              </label>
+              <input
+                type="range"
+                min="0"
+                max="1.5"
+                step="0.05"
+                value={bpConfig.wallBounce}
+                onChange={(e) =>
+                  updateBpConfig("wallBounce", parseFloat(e.target.value))
+                }
+              />
+            </div>
+
+            <div className="section">
+              <label>Interacción</label>
+              <button
+                className={`toggle-btn ${bpConfig.followCursor ? "active" : ""}`}
+                onClick={() =>
+                  updateBpConfig("followCursor", !bpConfig.followCursor)
+                }
+                style={{ width: "100%", textAlign: "center" }}>
+                {bpConfig.followCursor ? "Seguir Cursor" : "Cursor Libre"}
               </button>
             </div>
           </>

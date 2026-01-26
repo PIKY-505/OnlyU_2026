@@ -42,6 +42,7 @@ function App() {
   // --- ESTADO PARA CONFIGURACIÓN DE FONDOS (Lifted State) ---
   const [floatingLinesConfig, setFloatingLinesConfig] = useState(null);
   const [lightPillarsConfig, setLightPillarsConfig] = useState(null);
+  const [ballpitConfig, setBallpitConfig] = useState(null);
 
   const handleMenuClick = (itemId) => {
     if (itemId) {
@@ -182,6 +183,7 @@ function App() {
             <BackgroundController
               floatingLinesConfig={floatingLinesConfig}
               lightPillarsConfig={lightPillarsConfig}
+              ballpitConfig={ballpitConfig}
             />
 
             {/* MENÚ STAGGERED (Lateral) */}
@@ -231,7 +233,8 @@ function App() {
             <AnimatePresence>
               {showBackgroundSettings &&
                 (activeBackground === "floatinglines" ||
-                  activeBackground === "lightpillars") && (
+                  activeBackground === "lightpillars" ||
+                  activeBackground === "ballpit") && (
                   <motion.div
                     initial={{ opacity: 0, x: 50 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -252,6 +255,8 @@ function App() {
                         setFloatingLinesConfig={setFloatingLinesConfig}
                         lightPillarsConfig={lightPillarsConfig}
                         setLightPillarsConfig={setLightPillarsConfig}
+                        ballpitConfig={ballpitConfig}
+                        setBallpitConfig={setBallpitConfig}
                       />
                     </div>
                   </motion.div>

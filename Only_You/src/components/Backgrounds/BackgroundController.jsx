@@ -11,17 +11,20 @@ import { AnimatePresence, motion } from "framer-motion";
 const BackgroundController = ({
   floatingLinesConfig: propFlConfig,
   lightPillarsConfig: propLpConfig,
+  ballpitConfig: propBpConfig,
 }) => {
   // Leemos la configuración del store (si existe)
   const {
     activeBackground,
     floatingLinesConfig: storeFlConfig,
     lightPillarsConfig: storeLpConfig,
+    ballpitConfig: storeBpConfig,
   } = useGameStore();
 
   // Prioridad: Props (desde App) > Store > Default
   const floatingLinesConfig = propFlConfig || storeFlConfig;
   const lightPillarsConfig = propLpConfig || storeLpConfig;
+  const ballpitConfig = propBpConfig || storeBpConfig;
 
   // Configuración por defecto (Fallback)
   const flConfig = floatingLinesConfig || {
@@ -47,6 +50,16 @@ const BackgroundController = ({
     interactive: false,
     glowAmount: 0.002,
     quality: "high",
+  };
+
+  // Configuración por defecto para Ballpit
+  const bpConfig = ballpitConfig || {
+    colors: ["#f700ff", "#bd71ff", "#29b1ff"],
+    count: 60,
+    gravity: 0.1,
+    friction: 0.995,
+    wallBounce: 0.9,
+    followCursor: false,
   };
 
   return (
@@ -120,18 +133,12 @@ const BackgroundController = ({
             {" "}
             {/* <--- CAMBIA EL COLOR DE FONDO AQUÍ */}
             <Ballpit
-              count={60}
-              gravity={0.1}
-              friction={0.995}
-              wallBounce={0.9}
-              followCursor={
-                false
-              } /* Cambia a false si no quieres que sigan al ratón */
-              colors={[
-                "#f700ff",
-                "#bd71ff",
-                "#29b1ff",
-              ]} /* Añade o cambia colores Hex aquí */
+              count={bpConfig.count}
+              gravity={bpConfig.gravity}
+              friction={bpConfig.friction}
+              wallBounce={bpConfig.wallBounce}
+              followCursor={bpConfig.followCursor}
+              colors={bpConfig.colors}
             />
           </motion.div>
         )}
