@@ -64,6 +64,13 @@ const SHOP_DATA = {
       price: "Gratis",
       previewColor: "#00ffff",
     },
+    {
+      id: "pixelsnow",
+      name: "Pixel Snow",
+      description: "Nevada suave y distante.",
+      price: "Gratis",
+      previewColor: "#ffffff",
+    },
   ],
   cursors: [
     {

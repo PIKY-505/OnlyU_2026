@@ -46,6 +46,7 @@ function App() {
   const [silkConfig, setSilkConfig] = useState(null);
   const [galaxyConfig, setGalaxyConfig] = useState(null);
   const [gradientConfig, setGradientConfig] = useState(null);
+  const [pixelSnowConfig, setPixelSnowConfig] = useState(null);
 
   const handleMenuClick = (itemId) => {
     if (itemId) {
@@ -104,6 +105,7 @@ function App() {
           setSilkConfig(null);
           setGalaxyConfig(null);
           setGradientConfig(null);
+          setPixelSnowConfig(null);
 
           lockGame(); // Bloqueamos la app
         }
@@ -199,6 +201,7 @@ function App() {
               silkConfig={silkConfig}
               galaxyConfig={galaxyConfig}
               gradientConfig={gradientConfig}
+              pixelSnowConfig={pixelSnowConfig}
             />
 
             {/* MENÚ STAGGERED (Lateral) */}
@@ -247,12 +250,15 @@ function App() {
             {/* PERSONALIZADOR DE FONDO (Z-Index alto para que funcione el click) */}
             <AnimatePresence>
               {showBackgroundSettings &&
-                (activeBackground === "floatinglines" ||
-                  activeBackground === "lightpillars" ||
-                  activeBackground === "ballpit" ||
-                  activeBackground === "silk" ||
-                  activeBackground === "galaxy" ||
-                  activeBackground === "gradient") && (
+                [
+                  "floatinglines",
+                  "lightpillars",
+                  "ballpit",
+                  "silk",
+                  "galaxy",
+                  "gradient",
+                  "pixelsnow",
+                ].includes(activeBackground) && (
                   <motion.div
                     initial={{ opacity: 0, x: 50 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -281,6 +287,8 @@ function App() {
                         setGalaxyConfig={setGalaxyConfig}
                         gradientConfig={gradientConfig}
                         setGradientConfig={setGradientConfig}
+                        pixelSnowConfig={pixelSnowConfig}
+                        setPixelSnowConfig={setPixelSnowConfig}
                       />
                     </div>
                   </motion.div>

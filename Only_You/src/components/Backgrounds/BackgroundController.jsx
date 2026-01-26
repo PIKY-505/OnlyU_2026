@@ -6,6 +6,7 @@ import Silk from "./Silk";
 import Ballpit from "./Ballpit";
 import FloatingLines from "./FloatingLines";
 import LightPillars from "./LightPillars";
+import PixelSnow from "./PixelSnow";
 import { AnimatePresence, motion } from "framer-motion";
 
 const BackgroundController = ({
@@ -15,6 +16,7 @@ const BackgroundController = ({
   silkConfig: propSilkConfig,
   galaxyConfig: propGalaxyConfig,
   gradientConfig: propGradientConfig,
+  pixelSnowConfig: propPixelSnowConfig,
 }) => {
   // Leemos la configuración del store (si existe)
   const {
@@ -25,6 +27,7 @@ const BackgroundController = ({
     silkConfig: storeSilkConfig,
     galaxyConfig: storeGalaxyConfig,
     gradientConfig: storeGradientConfig,
+    pixelSnowConfig: storePixelSnowConfig,
   } = useGameStore();
 
   // Prioridad: Props (desde App) > Store > Default
@@ -34,6 +37,7 @@ const BackgroundController = ({
   const silkConfig = propSilkConfig || storeSilkConfig;
   const galaxyConfig = propGalaxyConfig || storeGalaxyConfig;
   const gradientConfig = propGradientConfig || storeGradientConfig;
+  const pixelSnowConfig = propPixelSnowConfig || storePixelSnowConfig;
 
   // Configuración por defecto (Fallback)
   const flConfig = floatingLinesConfig || {
@@ -97,6 +101,22 @@ const BackgroundController = ({
     color1: "#b117f8",
     color2: "#2c0b2e",
     speed: 20,
+  };
+
+  // Configuración por defecto para PixelSnow
+  const psConfig = pixelSnowConfig || {
+    color: "#ffffff",
+    flakeSize: 0.01, // Mucho más pequeño para alejarlo
+    minFlakeSize: 0.6, // Reducido para permitir copos lejanos
+    pixelResolution: 800, // Mayor resolución = píxeles más pequeños
+    speed: 1.9,
+    density: 0.45,
+    direction: 100,
+    brightness: 1.5,
+    depthFade: 3,
+    farPlane: 50,
+    gamma: 0.4545,
+    variant: "snowflake",
   };
 
   return (
@@ -227,6 +247,29 @@ const BackgroundController = ({
               pillarRotation={lpConfig.pillarRotation}
               interactive={lpConfig.interactive ?? true}
               quality={lpConfig.quality ?? "high"}
+            />
+          </motion.div>
+        )}
+
+        {/* CASO 7: PIXEL SNOW */}
+        {activeBackground === "pixelsnow" && (
+          <motion.div
+            key="pixelsnow"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1 }}
+            style={{ position: "absolute", inset: 0, background: "#000" }}>
+            <PixelSnow
+              color={psConfig.color}
+              flakeSize={psConfig.flakeSize}
+              minFlakeSize={psConfig.minFlakeSize}
+              pixelResolution={psConfig.pixelResolution}
+              speed={psConfig.speed}
+              density={psConfig.density}
+              direction={psConfig.direction}
+              brightness={psConfig.brightness}
+              variant={psConfig.variant}
             />
           </motion.div>
         )}

@@ -76,6 +76,21 @@ const DEFAULT_GRADIENT_CONFIG = {
   speed: 20,
 };
 
+const DEFAULT_SNOW_CONFIG = {
+  color: "#ffffff",
+  flakeSize: 0.01,
+  minFlakeSize: 0.6,
+  pixelResolution: 800,
+  speed: 1.9,
+  density: 0.45,
+  direction: 100,
+  brightness: 1.5,
+  depthFade: 3,
+  farPlane: 50,
+  gamma: 0.4545,
+  variant: "snowflake",
+};
+
 const BackgroundCustomizer = ({
   onClose,
   floatingLinesConfig: propFlConfig,
@@ -90,6 +105,8 @@ const BackgroundCustomizer = ({
   setGalaxyConfig: propSetGalaxyConfig,
   gradientConfig: propGradientConfig,
   setGradientConfig: propSetGradientConfig,
+  pixelSnowConfig: propPixelSnowConfig,
+  setPixelSnowConfig: propSetPixelSnowConfig,
 }) => {
   // Asumimos que estas funciones existen en el store.
   const {
@@ -106,6 +123,8 @@ const BackgroundCustomizer = ({
     setGalaxyConfig: storeSetGalaxyConfig,
     gradientConfig: storeGradientConfig,
     setGradientConfig: storeSetGradientConfig,
+    pixelSnowConfig: storePixelSnowConfig,
+    setPixelSnowConfig: storeSetPixelSnowConfig,
   } = useGameStore();
 
   // Resolver configuración y setters (Props > Store)
@@ -121,6 +140,8 @@ const BackgroundCustomizer = ({
   const setGalaxyConfig = propSetGalaxyConfig || storeSetGalaxyConfig;
   const gradientConfig = propGradientConfig || storeGradientConfig;
   const setGradientConfig = propSetGradientConfig || storeSetGradientConfig;
+  const pixelSnowConfig = propPixelSnowConfig || storePixelSnowConfig;
+  const setPixelSnowConfig = propSetPixelSnowConfig || storeSetPixelSnowConfig;
 
   // --- CONFIGURACIÓN FLOATING LINES ---
   const flConfig = floatingLinesConfig || DEFAULT_FL_CONFIG;
@@ -200,6 +221,15 @@ const BackgroundCustomizer = ({
     }
   };
 
+  // --- CONFIGURACIÓN PIXEL SNOW ---
+  const psConfig = pixelSnowConfig || DEFAULT_SNOW_CONFIG;
+
+  const updatePixelSnowConfig = (key, value) => {
+    if (setPixelSnowConfig) {
+      setPixelSnowConfig({ ...psConfig, [key]: value });
+    }
+  };
+
   // --- FUNCIÓN RESET ---
   const handleReset = () => {
     if (activeBackground === "floatinglines" && setFloatingLinesConfig) {
@@ -214,6 +244,8 @@ const BackgroundCustomizer = ({
       setGalaxyConfig(DEFAULT_GALAXY_CONFIG);
     } else if (activeBackground === "gradient" && setGradientConfig) {
       setGradientConfig(DEFAULT_GRADIENT_CONFIG);
+    } else if (activeBackground === "pixelsnow" && setPixelSnowConfig) {
+      setPixelSnowConfig(DEFAULT_SNOW_CONFIG);
     }
   };
 
@@ -860,6 +892,116 @@ const BackgroundCustomizer = ({
                 value={gradConfig.speed}
                 onChange={(e) =>
                   updateGradientConfig("speed", parseInt(e.target.value))
+                }
+              />
+            </div>
+          </>
+        )}
+
+        {/* --- CONTENIDO PARA PIXEL SNOW --- */}
+        {activeBackground === "pixelsnow" && (
+          <>
+            <div className="section">
+              <label>Color</label>
+              <div className="color-pickers">
+                <div className="color-input-wrapper">
+                  <input
+                    type="color"
+                    value={psConfig.color}
+                    onChange={(e) =>
+                      updatePixelSnowConfig("color", e.target.value)
+                    }
+                  />
+                  <span className="hex-code">{psConfig.color}</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="section">
+              <label>Variante</label>
+              <div className="toggles-row">
+                {["snowflake", "square", "round"].map((v) => (
+                  <button
+                    key={v}
+                    className={`toggle-btn ${psConfig.variant === v ? "active" : ""}`}
+                    onClick={() => updatePixelSnowConfig("variant", v)}>
+                    {v.charAt(0).toUpperCase() + v.slice(1)}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="section">
+              <label>
+                Velocidad <span>{psConfig.speed}</span>
+              </label>
+              <input
+                type="range"
+                min="0"
+                max="5"
+                step="0.1"
+                value={psConfig.speed}
+                onChange={(e) =>
+                  updatePixelSnowConfig("speed", parseFloat(e.target.value))
+                }
+              />
+
+              <label>
+                Densidad <span>{psConfig.density}</span>
+              </label>
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.05"
+                value={psConfig.density}
+                onChange={(e) =>
+                  updatePixelSnowConfig("density", parseFloat(e.target.value))
+                }
+              />
+
+              <label>
+                Dirección <span>{psConfig.direction}°</span>
+              </label>
+              <input
+                type="range"
+                min="0"
+                max="360"
+                step="5"
+                value={psConfig.direction}
+                onChange={(e) =>
+                  updatePixelSnowConfig("direction", parseInt(e.target.value))
+                }
+              />
+
+              <label>
+                Tamaño Copo <span>{psConfig.flakeSize}</span>
+              </label>
+              <input
+                type="range"
+                min="0.005"
+                max="0.05"
+                step="0.001"
+                value={psConfig.flakeSize}
+                onChange={(e) =>
+                  updatePixelSnowConfig("flakeSize", parseFloat(e.target.value))
+                }
+              />
+
+              <label>
+                Brillo <span>{psConfig.brightness}</span>
+              </label>
+              <input
+                type="range"
+                min="0.5"
+                max="3"
+                step="0.1"
+                value={psConfig.brightness}
+                onChange={(e) =>
+                  updatePixelSnowConfig(
+                    "brightness",
+                    parseFloat(e.target.value),
+                  )
                 }
               />
             </div>
