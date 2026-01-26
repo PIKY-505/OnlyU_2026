@@ -13,6 +13,8 @@ const BackgroundController = ({
   lightPillarsConfig: propLpConfig,
   ballpitConfig: propBpConfig,
   silkConfig: propSilkConfig,
+  galaxyConfig: propGalaxyConfig,
+  gradientConfig: propGradientConfig,
 }) => {
   // Leemos la configuración del store (si existe)
   const {
@@ -21,6 +23,8 @@ const BackgroundController = ({
     lightPillarsConfig: storeLpConfig,
     ballpitConfig: storeBpConfig,
     silkConfig: storeSilkConfig,
+    galaxyConfig: storeGalaxyConfig,
+    gradientConfig: storeGradientConfig,
   } = useGameStore();
 
   // Prioridad: Props (desde App) > Store > Default
@@ -28,6 +32,8 @@ const BackgroundController = ({
   const lightPillarsConfig = propLpConfig || storeLpConfig;
   const ballpitConfig = propBpConfig || storeBpConfig;
   const silkConfig = propSilkConfig || storeSilkConfig;
+  const galaxyConfig = propGalaxyConfig || storeGalaxyConfig;
+  const gradientConfig = propGradientConfig || storeGradientConfig;
 
   // Configuración por defecto (Fallback)
   const flConfig = floatingLinesConfig || {
@@ -74,6 +80,25 @@ const BackgroundController = ({
     rotation: 0,
   };
 
+  // Configuración por defecto para Galaxy
+  const gConfig = galaxyConfig || {
+    density: 1,
+    glowIntensity: 0.5,
+    saturation: 1,
+    hueShift: 110,
+    twinkleIntensity: 0.3,
+    rotationSpeed: 0.1,
+    starSpeed: 0.5,
+    speed: 0.5,
+  };
+
+  // Configuración por defecto para Gradient
+  const gradConfig = gradientConfig || {
+    color1: "#b117f8",
+    color2: "#2c0b2e",
+    speed: 20,
+  };
+
   return (
     <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
       <AnimatePresence mode="wait">
@@ -86,7 +111,11 @@ const BackgroundController = ({
             exit={{ opacity: 0 }}
             transition={{ duration: 1 }}
             style={{ position: "absolute", inset: 0 }}>
-            <GradientBackground />
+            <GradientBackground
+              color1={gradConfig.color1}
+              color2={gradConfig.color2}
+              speed={gradConfig.speed}
+            />
           </motion.div>
         )}
 
@@ -102,14 +131,14 @@ const BackgroundController = ({
             <Galaxy
               mouseRepulsion={false}
               mouseInteraction={false}
-              density={1}
-              glowIntensity={0.5}
-              saturation={1}
-              hueShift={110}
-              twinkleIntensity={0.3}
-              rotationSpeed={0.1}
-              starSpeed={0.5}
-              speed={0.5}
+              density={gConfig.density}
+              glowIntensity={gConfig.glowIntensity}
+              saturation={gConfig.saturation}
+              hueShift={gConfig.hueShift}
+              twinkleIntensity={gConfig.twinkleIntensity}
+              rotationSpeed={gConfig.rotationSpeed}
+              starSpeed={gConfig.starSpeed}
+              speed={gConfig.speed}
             />
           </motion.div>
         )}

@@ -44,6 +44,8 @@ function App() {
   const [lightPillarsConfig, setLightPillarsConfig] = useState(null);
   const [ballpitConfig, setBallpitConfig] = useState(null);
   const [silkConfig, setSilkConfig] = useState(null);
+  const [galaxyConfig, setGalaxyConfig] = useState(null);
+  const [gradientConfig, setGradientConfig] = useState(null);
 
   const handleMenuClick = (itemId) => {
     if (itemId) {
@@ -100,6 +102,8 @@ function App() {
           setLightPillarsConfig(null);
           setBallpitConfig(null);
           setSilkConfig(null);
+          setGalaxyConfig(null);
+          setGradientConfig(null);
 
           lockGame(); // Bloqueamos la app
         }
@@ -193,6 +197,8 @@ function App() {
               lightPillarsConfig={lightPillarsConfig}
               ballpitConfig={ballpitConfig}
               silkConfig={silkConfig}
+              galaxyConfig={galaxyConfig}
+              gradientConfig={gradientConfig}
             />
 
             {/* MENÚ STAGGERED (Lateral) */}
@@ -244,7 +250,9 @@ function App() {
                 (activeBackground === "floatinglines" ||
                   activeBackground === "lightpillars" ||
                   activeBackground === "ballpit" ||
-                  activeBackground === "silk") && (
+                  activeBackground === "silk" ||
+                  activeBackground === "galaxy" ||
+                  activeBackground === "gradient") && (
                   <motion.div
                     initial={{ opacity: 0, x: 50 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -269,6 +277,10 @@ function App() {
                         setBallpitConfig={setBallpitConfig}
                         silkConfig={silkConfig}
                         setSilkConfig={setSilkConfig}
+                        galaxyConfig={galaxyConfig}
+                        setGalaxyConfig={setGalaxyConfig}
+                        gradientConfig={gradientConfig}
+                        setGradientConfig={setGradientConfig}
                       />
                     </div>
                   </motion.div>

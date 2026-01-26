@@ -1,6 +1,10 @@
 import React from "react";
 
-const GradientBackground = () => {
+const GradientBackground = ({
+  color1 = "#b117f8",
+  color2 = "#2c0b2e",
+  speed = 20,
+}) => {
   return (
     <div
       style={{
@@ -29,9 +33,9 @@ const GradientBackground = () => {
 
           // Tu degradado original (De morado #8629b1 a rosa #f700ff)
           // Lo ponemos vertical (to bottom) porque al girar la caja, la dirección cambiará sola.
-          background: "linear-gradient(to bottom, #b117f8, #2c0b2e)",
+          background: `linear-gradient(to bottom, ${color1}, ${color2})`,
           // Animación de rotación suave e infinita
-          animation: "spinGradient 20s linear infinite",
+          animation: `spinGradient ${speed}s linear infinite`,
         }}
       />
 

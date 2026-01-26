@@ -59,6 +59,23 @@ const DEFAULT_SILK_CONFIG = {
   rotation: 0,
 };
 
+const DEFAULT_GALAXY_CONFIG = {
+  density: 1,
+  glowIntensity: 0.5,
+  saturation: 1,
+  hueShift: 110,
+  twinkleIntensity: 0.3,
+  rotationSpeed: 0.1,
+  starSpeed: 0.5,
+  speed: 0.5,
+};
+
+const DEFAULT_GRADIENT_CONFIG = {
+  color1: "#b117f8",
+  color2: "#2c0b2e",
+  speed: 20,
+};
+
 const BackgroundCustomizer = ({
   onClose,
   floatingLinesConfig: propFlConfig,
@@ -69,6 +86,10 @@ const BackgroundCustomizer = ({
   setBallpitConfig: propSetBpConfig,
   silkConfig: propSilkConfig,
   setSilkConfig: propSetSilkConfig,
+  galaxyConfig: propGalaxyConfig,
+  setGalaxyConfig: propSetGalaxyConfig,
+  gradientConfig: propGradientConfig,
+  setGradientConfig: propSetGradientConfig,
 }) => {
   // Asumimos que estas funciones existen en el store.
   const {
@@ -81,6 +102,10 @@ const BackgroundCustomizer = ({
     setBallpitConfig: storeSetBpConfig,
     silkConfig: storeSilkConfig,
     setSilkConfig: storeSetSilkConfig,
+    galaxyConfig: storeGalaxyConfig,
+    setGalaxyConfig: storeSetGalaxyConfig,
+    gradientConfig: storeGradientConfig,
+    setGradientConfig: storeSetGradientConfig,
   } = useGameStore();
 
   // Resolver configuración y setters (Props > Store)
@@ -92,6 +117,10 @@ const BackgroundCustomizer = ({
   const setBallpitConfig = propSetBpConfig || storeSetBpConfig;
   const silkConfig = propSilkConfig || storeSilkConfig;
   const setSilkConfig = propSetSilkConfig || storeSetSilkConfig;
+  const galaxyConfig = propGalaxyConfig || storeGalaxyConfig;
+  const setGalaxyConfig = propSetGalaxyConfig || storeSetGalaxyConfig;
+  const gradientConfig = propGradientConfig || storeGradientConfig;
+  const setGradientConfig = propSetGradientConfig || storeSetGradientConfig;
 
   // --- CONFIGURACIÓN FLOATING LINES ---
   const flConfig = floatingLinesConfig || DEFAULT_FL_CONFIG;
@@ -153,6 +182,24 @@ const BackgroundCustomizer = ({
     }
   };
 
+  // --- CONFIGURACIÓN GALAXY ---
+  const gConfig = galaxyConfig || DEFAULT_GALAXY_CONFIG;
+
+  const updateGalaxyConfig = (key, value) => {
+    if (setGalaxyConfig) {
+      setGalaxyConfig({ ...gConfig, [key]: value });
+    }
+  };
+
+  // --- CONFIGURACIÓN GRADIENT ---
+  const gradConfig = gradientConfig || DEFAULT_GRADIENT_CONFIG;
+
+  const updateGradientConfig = (key, value) => {
+    if (setGradientConfig) {
+      setGradientConfig({ ...gradConfig, [key]: value });
+    }
+  };
+
   // --- FUNCIÓN RESET ---
   const handleReset = () => {
     if (activeBackground === "floatinglines" && setFloatingLinesConfig) {
@@ -163,6 +210,10 @@ const BackgroundCustomizer = ({
       setBallpitConfig(DEFAULT_BP_CONFIG);
     } else if (activeBackground === "silk" && setSilkConfig) {
       setSilkConfig(DEFAULT_SILK_CONFIG);
+    } else if (activeBackground === "galaxy" && setGalaxyConfig) {
+      setGalaxyConfig(DEFAULT_GALAXY_CONFIG);
+    } else if (activeBackground === "gradient" && setGradientConfig) {
+      setGradientConfig(DEFAULT_GRADIENT_CONFIG);
     }
   };
 
@@ -645,6 +696,170 @@ const BackgroundCustomizer = ({
                 value={sConfig.rotation}
                 onChange={(e) =>
                   updateSilkConfig("rotation", parseInt(e.target.value))
+                }
+              />
+            </div>
+          </>
+        )}
+
+        {/* --- CONTENIDO PARA GALAXY --- */}
+        {activeBackground === "galaxy" && (
+          <>
+            <div className="section">
+              <label>
+                Densidad <span>{gConfig.density}</span>
+              </label>
+              <input
+                type="range"
+                min="0.1"
+                max="2"
+                step="0.1"
+                value={gConfig.density}
+                onChange={(e) =>
+                  updateGalaxyConfig("density", parseFloat(e.target.value))
+                }
+              />
+
+              <label>
+                Intensidad Brillo <span>{gConfig.glowIntensity}</span>
+              </label>
+              <input
+                type="range"
+                min="0"
+                max="2"
+                step="0.1"
+                value={gConfig.glowIntensity}
+                onChange={(e) =>
+                  updateGalaxyConfig(
+                    "glowIntensity",
+                    parseFloat(e.target.value),
+                  )
+                }
+              />
+
+              <label>
+                Saturación <span>{gConfig.saturation}</span>
+              </label>
+              <input
+                type="range"
+                min="0"
+                max="2"
+                step="0.1"
+                value={gConfig.saturation}
+                onChange={(e) =>
+                  updateGalaxyConfig("saturation", parseFloat(e.target.value))
+                }
+              />
+
+              <label>
+                Cambio de Tono (Hue) <span>{gConfig.hueShift}</span>
+              </label>
+              <input
+                type="range"
+                min="0"
+                max="360"
+                step="5"
+                value={gConfig.hueShift}
+                onChange={(e) =>
+                  updateGalaxyConfig("hueShift", parseFloat(e.target.value))
+                }
+              />
+            </div>
+
+            <div className="section">
+              <label>
+                Velocidad Rotación <span>{gConfig.rotationSpeed}</span>
+              </label>
+              <input
+                type="range"
+                min="-0.5"
+                max="0.5"
+                step="0.01"
+                value={gConfig.rotationSpeed}
+                onChange={(e) =>
+                  updateGalaxyConfig(
+                    "rotationSpeed",
+                    parseFloat(e.target.value),
+                  )
+                }
+              />
+
+              <label>
+                Velocidad Estrellas <span>{gConfig.starSpeed}</span>
+              </label>
+              <input
+                type="range"
+                min="0"
+                max="2"
+                step="0.1"
+                value={gConfig.starSpeed}
+                onChange={(e) =>
+                  updateGalaxyConfig("starSpeed", parseFloat(e.target.value))
+                }
+              />
+
+              <label>
+                Velocidad Animación <span>{gConfig.speed}</span>
+              </label>
+              <input
+                type="range"
+                min="0"
+                max="2"
+                step="0.1"
+                value={gConfig.speed}
+                onChange={(e) =>
+                  updateGalaxyConfig("speed", parseFloat(e.target.value))
+                }
+              />
+            </div>
+          </>
+        )}
+
+        {/* --- CONTENIDO PARA GRADIENT --- */}
+        {activeBackground === "gradient" && (
+          <>
+            <div className="section">
+              <label>Colores</label>
+              <div className="color-pickers">
+                <div className="color-input-wrapper">
+                  <label style={{ fontSize: "0.8rem", marginBottom: 5 }}>
+                    Superior
+                  </label>
+                  <input
+                    type="color"
+                    value={gradConfig.color1}
+                    onChange={(e) =>
+                      updateGradientConfig("color1", e.target.value)
+                    }
+                  />
+                </div>
+                <div className="color-input-wrapper">
+                  <label style={{ fontSize: "0.8rem", marginBottom: 5 }}>
+                    Inferior
+                  </label>
+                  <input
+                    type="color"
+                    value={gradConfig.color2}
+                    onChange={(e) =>
+                      updateGradientConfig("color2", e.target.value)
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="section">
+              <label>
+                Velocidad (segundos) <span>{gradConfig.speed}s</span>
+              </label>
+              <input
+                type="range"
+                min="1"
+                max="60"
+                step="1"
+                value={gradConfig.speed}
+                onChange={(e) =>
+                  updateGradientConfig("speed", parseInt(e.target.value))
                 }
               />
             </div>
